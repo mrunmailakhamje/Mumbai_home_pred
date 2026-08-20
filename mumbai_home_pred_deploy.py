@@ -28,7 +28,7 @@ city = st.selectbox("City",encoder["City"].classes_)
 property_type = st.selectbox("Property Type",encoder["Property Type"].classes_)
 bedroom_num = st.selectbox("No.of.Bedroom",encoder["No.of.Bedroom"].classes_)
 bathroom_num = st.selectbox("No.of.Bathroom",encoder["No.of.Bathroom"].classes_)
-balcony_num = st.selectbox("Gender",encoder["Gender"].classes_)
+balcony_num = st.selectbox("No.of.Balcony",encoder["No.of.Balcony"].classes_)
 furnished = st.selectbox("Furnished",encoder["Furnished"].classes_)
 age = st.number_input("Age")
 total_floors = st.selectbox("Total Floors",encoder["Total Floors"].classes_)
@@ -53,9 +53,9 @@ df = pd.DataFrame({
 
 })
 
-if st.button("Predict Mumbai Home Price")
+if st.button("Predict Mumbai Home Price"):
   for column in encoder:
-    df(col) = encoder[col].transform(df[col])
+    df[column] = encoder[col].transform(df[col])
 
   prediction = model.predict(df)
   st.success(f"The predicted price is {prediction}")

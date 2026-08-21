@@ -18,7 +18,7 @@ model = joblib.load("Mumbai_home_pred.pkl")
 encoder = joblib.load("label_encoder_home.pkl")
 
 
-st.title("Mumbai Home Price Prediction"):
+st.title("Mumbai Home Price Prediction")
 
 price = st.number_input("Price")
 area = st.number_input("Area")
@@ -53,7 +53,7 @@ df = pd.DataFrame({
 
 })
 
-if st.button("Predict Mumbai Home Price")
+if st.button("Predict Mumbai Home Price"):
   for column in encoder:
     df(col) = encoder[col].transform(df[col])
 

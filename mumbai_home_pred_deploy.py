@@ -13,10 +13,15 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
+import os
 
-model = joblib.load("Mumbai_home_pred.pkl")
-encoder = joblib.load("label_encoder_home.pkl")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+model_path = os.path.join(BASE_DIR, "Mumbai_home_pred.pkl")
+encoder_path = os.path.join(BASE_DIR, "label_encoder_home.pkl")
+
+model = joblib.load(model_path)
+encoder = joblib.load(encoder_path)
 
 st.title("Mumbai Home Price Prediction")
 

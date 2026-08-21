@@ -26,7 +26,7 @@ price_per_sqft = st.number_input("Price per sqft")
 locality = st.selectbox("Locality",encoder["locality"].classes_)
 city = st.selectbox("City",encoder["city"].classes_)
 property_type = st.selectbox("Property Type",encoder["property_type"].classes_)
-bedroom_num = st.selectbox("Bedroom number",encoder["bedroom_num"].classes_)
+bedroom_num = st.number_input("bedroom_num")
 bathroom_num = st.selectbox("No.of.Bathroom",encoder["bathroom_num"].classes_)
 balcony_num = st.selectbox("No.of.Balcony",encoder["balcony_num"].classes_)
 furnished = st.selectbox("Furnished",encoder["Furnished"].classes_)
@@ -35,7 +35,6 @@ total_floors = st.selectbox("Total Floors",encoder["Total Floors"].classes_)
 latitude = st.number_input("Latitude")
 longitude = st.number_input("Longitude")
 
-st.write(encoder.keys())
 
 df = pd.DataFrame({
     "Price":[price],

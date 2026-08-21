@@ -13,9 +13,15 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
+import os
 
-model = joblib.load("Mumbai_home_pred.pkl")
-encoder = joblib.load("label_encoder_home.pkl")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+model_path = os.path.join(BASE_DIR, "Mumbai_home_pred.pkl")
+encoder_path = os.path.join(BASE_DIR, "label_encoder_home.pkl")
+
+model = joblib.load(model_path)
+encoder = joblib.load(encoder_path)
 
 
 st.title("Mumbai Home Price Prediction")
@@ -23,39 +29,78 @@ st.title("Mumbai Home Price Prediction")
 price = st.number_input("Price")
 area = st.number_input("Area")
 price_per_sqft = st.number_input("Price per sqft")
-locality = st.selectbox("Locality",encoder["Locality"].classes_)
-city = st.selectbox("City",encoder["City"].classes_)
-property_type = st.selectbox("Property Type",encoder["Property Type"].classes_)
-bedroom_num = st.selectbox("No.of.Bedroom",encoder["No.of.Bedroom"].classes_)
-bathroom_num = st.selectbox("No.of.Bathroom",encoder["No.of.Bathroom"].classes_)
-balcony_num = st.selectbox("No.of.Balcony",encoder["No.of.Balcony"].classes_)
-furnished = st.selectbox("Furnished",encoder["Furnished"].classes_)
+
+locality = st.selectbox(
+    "Locality",
+    encoder["Locality"].classes_
+)
+
+city = st.selectbox(
+    "City",
+    encoder["City"].classes_
+)
+
+property_type = st.selectbox(
+    "Property Type",
+    encoder["Property Type"].classes_
+)
+
+bedroom_num = st.selectbox(
+    "No.of.Bedroom",
+    encoder["No.of.Bedroom"].classes_
+)
+
+bathroom_num = st.selectbox(
+    "No.of.Bathroom",
+    encoder["No.of.Bathroom"].classes_
+)
+
+balcony_num = st.selectbox(
+    "No.of.Balcony",
+    encoder["No.of.Balcony"].classes_
+)
+
+furnished = st.selectbox(
+    "Furnished",
+    encoder["Furnished"].classes_
+)
+
 age = st.number_input("Age")
-total_floors = st.selectbox("Total Floors",encoder["Total Floors"].classes_)
+
+total_floors = st.selectbox(
+    "Total Floor",
+    encoder["Total Floor"].classes_
+)
+
 latitude = st.number_input("Latitude")
 longitude = st.number_input("Longitude")
 
+
 df = pd.DataFrame({
-    "Price":[price],
-    "Area":[area],
-    "Price per sqft":[price_per_sqft],
-    "Locality":[locality],
-    "City":[city],
-    "Property Type":[property_type],
-    "No.of.Bedroom":[bedroom_num],
-    "No.of.Bathroom":[bathroom_num],
-    "No.of.Balcony":[balcony_num],
-    "Furnished":[furnished],
-    "Age":[age],
-    "Total Floor":[total_floors],
-    "Latitude":[latitude],
-    "Longitude":[longitude]
+
+    "Price": [price],
+    "Area": [area],
+    "Price per sqft": [price_per_sqft],
+    "Locality": [locality],
+    "City": [city],
+    "Property Type": [property_type],
+    "No.of.Bedroom": [bedroom_num],
+    "No.of.Bathroom": [bathroom_num],
+    "No.of.Balcony": [balcony_num],
+    "Furnished": [furnished],
+    "Age": [age],
+    "Total Floor": [total_floors],
+    "Latitude": [latitude],
+    "Longitude": [longitude]
 
 })
 
-if st.button("Predict Mumbai Home Price"):
-  for column in encoder:
-    df[column] = encoder[col].transform(df[col])
 
-  prediction = model.predict(df)
-  st.success(f"The predicted price is {prediction}")
+if st.button("Predict Mumbai Home Price"):
+
+    for col in encoder:
+        df[col] = encoder[col].transform(df[col])
+
+    prediction = model.predict(df)
+
+    st.success(f"The predicted price is {prediction[0]}")

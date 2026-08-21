@@ -59,4 +59,4 @@ if st.button("Predict Mumbai Home Price"):
     df(column) == encoder[column].transform(df[column])
 
   prediction = model.predict(df)
-  st.success(f"The predicted price is {prediction}")
+  st.success(f"The predicted price is {prediction[0]:,.2f}")

@@ -37,20 +37,20 @@ longitude = st.number_input("Longitude")
 
 
 df = pd.DataFrame({
-    "Price":[price],
-    "Area":[area],
-    "Price per sqft":[price_per_sqft],
-    "Locality":[locality],
-    "City":[city],
+    "price":[price],
+    "area":[area],
+    "price_per_sqft":[price_per_sqft],
+    "locality":[locality],
+    "city":[city],
     "Property Type":[property_type],
-    "Bedroom number":[bedroom_num],
-    "No.of.Bathroom":[bathroom_num],
-    "No.of.Balcony":[balcony_num],
-    "Furnished":[furnished],
-    "Age":[age],
-    "Total Floor":[total_floors],
-    "Latitude":[latitude],
-    "Longitude":[longitude]
+    "bedroom_num":[bedroom_num],
+    "bathroom_num":[bathroom_num],
+    "balcony_num":[balcony_num],
+    "furnished":[furnished],
+    "age":[age],
+    "total_floors":[total_floors],
+    "latitude":[latitude],
+    "longitude":[longitude]
 
 })
 

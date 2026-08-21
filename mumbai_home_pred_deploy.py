@@ -26,7 +26,7 @@ price_per_sqft = st.number_input("Price per sqft")
 locality = st.selectbox("Locality",encoder["locality"].classes_)
 city = st.selectbox("City",encoder["city"].classes_)
 property_type = st.selectbox("Property Type",encoder["property_type"].classes_)
-bedroom_num = st.selectbox("bedroom_num",encoder["bedroom_num"].classes_)
+bedroom_num = st.selectbox("Bedroom number",encoder["bedroom_num"].classes_)
 bathroom_num = st.selectbox("No.of.Bathroom",encoder["bathroom_num"].classes_)
 balcony_num = st.selectbox("No.of.Balcony",encoder["balcony_num"].classes_)
 furnished = st.selectbox("Furnished",encoder["Furnished"].classes_)
@@ -42,7 +42,7 @@ df = pd.DataFrame({
     "Locality":[locality],
     "City":[city],
     "Property Type":[property_type],
-    "No.of.Bedroom":[bedroom_num],
+    "Bedroom number":[bedroom_num],
     "No.of.Bathroom":[bathroom_num],
     "No.of.Balcony":[balcony_num],
     "Furnished":[furnished],

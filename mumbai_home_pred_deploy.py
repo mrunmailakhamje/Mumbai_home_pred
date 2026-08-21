@@ -11,52 +11,68 @@ Original file is located at
 
 import streamlit as st
 import pandas as pd
-import numpy as np
 import joblib
-import os
 
+# Load model and encoders
 model = joblib.load("Mumbai_home_pred.pkl")
 encoder = joblib.load("label_encoder_home.pkl")
 
 st.title("Mumbai Home Price Prediction")
 
-price = st.number_input("Price")
-area = st.number_input("Area")
-price_per_sqft = st.number_input("Price per sqft")
+# Input fields
+area = st.number_input("Area", min_value=0.0)
+price_per_sqft = st.number_input("Price per sqft", min_value=0.0)
+
 locality = st.selectbox("Locality",encoder["locality"].classes_)
 city = st.selectbox("City",encoder["city"].classes_)
+
 property_type = st.selectbox("Property Type",encoder["property_type"].classes_)
-bedroom_num = st.number_input("bedroom_num")
-bathroom_num = st.number_input("bathroom_num")
-balcony_num = st.number_input("balcony_num")
+
+bedroom_num = st.number_input("Number of Bedrooms",min_value=0,step=1)
+
+bathroom_num = st.number_input("Number of Bathrooms",min_value=0,step=1)
+
+balcony_num = st.number_input("Number of Balconies",min_value=0,step=1)
+
 furnished = st.selectbox("Furnished",encoder["furnished"].classes_)
-age = st.number_input("Age")
-total_floors = st.number_input("total_floors")
-latitude = st.number_input("Latitude")
-longitude = st.number_input("Longitude")
+
+age = st.number_input("Age", min_value=0)
+
+total_floors = st.number_input("Total Floors",min_value=0,step=1)
+
+latitude = st.number_input("Latitude",format="%.6f")
+
+longitude = st.number_input("Longitude",format="%.6f")
 
 
+# Create dataframe
 df = pd.DataFrame({
-    "price":[price],
-    "area":[area],
-    "price_per_sqft":[price_per_sqft],
-    "locality":[locality],
-    "city":[city],
-    "Property Type":[property_type],
-    "bedroom_num":[bedroom_num],
-    "bathroom_num":[bathroom_num],
-    "balcony_num":[balcony_num],
-    "furnished":[furnished],
-    "age":[age],
-    "total_floors":[total_floors],
-    "latitude":[latitude],
-    "longitude":[longitude]
-
+    "area": [area],
+    "price_per_sqft": [price_per_sqft],
+    "locality": [locality],
+    "city": [city],
+    "property_type": [property_type],
+    "bedroom_num": [bedroom_num],
+    "bathroom_num": [bathroom_num],
+    "balcony_num": [balcony_num],
+    "furnished": [furnished],
+    "age": [age],
+    "total_floors": [total_floors],
+    "latitude": [latitude],
+    "longitude": [longitude]
 })
 
-if st.button("Predict Mumbai Home Price"):
-  for column in encoder:
-    df[column] == encoder[column].transform(df[column])
 
-  prediction = model.predict(df)
-  st.success(f"The predicted price is {prediction[0]:,.2f}")
+if st.button("Predict Mumbai Home Price"):
+
+    # Encode categorical columns
+    for column in encoder:
+        if column in df.columns:
+            df[column] = encoder[column].transform(df[column])
+
+    # Prediction
+    prediction = model.predict(df)
+
+    st.success(
+        f"The predicted Mumbai home price is ₹ {prediction[0]:,.2f}"
+    )

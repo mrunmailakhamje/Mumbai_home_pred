@@ -56,7 +56,7 @@ df = pd.DataFrame({
 
 if st.button("Predict Mumbai Home Price"):
   for column in encoder:
-    df[column] = encoder[column].transform(df[column])
+    df(column) = encoder[column].transform(df[column])
 
   prediction = model.predict(df)
   st.success(f"The predicted price is {prediction[0]:,.2f}")

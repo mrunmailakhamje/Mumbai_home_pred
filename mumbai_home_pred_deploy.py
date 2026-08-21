@@ -35,6 +35,8 @@ total_floors = st.selectbox("Total Floors",encoder["Total Floors"].classes_)
 latitude = st.number_input("Latitude")
 longitude = st.number_input("Longitude")
 
+st.write(encoder.keys())
+
 df = pd.DataFrame({
     "Price":[price],
     "Area":[area],
